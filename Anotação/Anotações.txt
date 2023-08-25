@@ -1,0 +1,15 @@
+DOMAINS
+	Classes
+
+CONTROLLERS
+	Metodos controladores
+	Autenticação
+	Automatização
+
+REPOSITORES
+	Implementação dos métodos (Regras de negócio)
+	
+
+INTERFACES
+	Definição dos métodos a serem implementados
+	
