@@ -24,12 +24,67 @@ namespace webapi.Filmes.Manha.Repositores
 
         public void AtualizarIdUrl(int id, GeneroDomain genero)
         {
-            throw new NotImplementedException();
-        }
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                //Declara a instrução a ser executada
+                string queryUpdate = "UPDATE Genero SET Nome = @Nome WHERE IdGenero = @IdGenero";
 
+                //Abre a conexão com o banco de dados
+                con.Open();
+
+                //Declara o SqlDataReader para percorrer a tabela do banco de dados
+                SqlDataReader rdr;
+
+                //Declara o SqlCommand passando a query que será executada e a conexão com o banco de dados
+                using (SqlCommand cmd = new SqlCommand(queryUpdate, con))
+                {
+                    cmd.Parameters.AddWithValue("@IdGenero", genero.IdGenero);
+                    cmd.Parameters.AddWithValue("@Nome", genero.Nome);
+
+                    con.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        /// <summary>
+        /// Buscar um gênero através do seu Id
+        /// </summary>
+        /// <param name="id">Id do gênero a ser buscado</param>
+        /// <returns>Objeto buscado ou null caso não seja encontrado</returns>
         public GeneroDomain BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                //Declara a instrução a ser executada
+                string querySelectById = "SELECT IdGenero, Nome FROM Genero WHERE IdGenero = @IdGenero";
+
+                //Abre a conexão com o banco de dados
+                con.Open();
+
+                //Declara o SqlDataReader para percorrer a tabela do banco de dados
+                SqlDataReader rdr;
+
+                //Declara o SqlCommand passando a query que será executada e a conexão com o banco de dados
+                using (SqlCommand cmd = new SqlCommand(querySelectById, con))
+                {
+                    cmd.Parameters.AddWithValue("@IdGenero", id);
+
+                    rdr = cmd.ExecuteReader();
+
+                    if (rdr.Read())
+                    {
+                        GeneroDomain generoBuscado = new GeneroDomain
+                        {
+                            IdGenero = Convert.ToInt32(rdr["IdGenero"]),
+                            Nome = rdr["Nome"].ToString()
+                        };
+                        return generoBuscado;
+                    }
+
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -42,25 +97,42 @@ namespace webapi.Filmes.Manha.Repositores
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
                 //Declara a query que será executada
-               string queryInsert  = "INSERT INTO Genero(Nome) VALUES ('" + novoGenero.Nome + "')";
+                string queryInsert = "INSERT INTO Genero(Nome) VALUES (@Nome)";
 
                 //Declara o SqlCommand passando a query que será executada e a conexão com o banco de dados
-                using (SqlCommand cmd = new SqlCommand(queryInsert,con))
+                using (SqlCommand cmd = new SqlCommand(queryInsert, con))
                 {
+                    //Passa o valor do parâmetro nome
+                    cmd.Parameters.AddWithValue("@Nome", novoGenero.Nome);
+
                     //Abre a conexão com o banco de dados
                     con.Open();
 
                     //Executar a query (queryInsert)
                     cmd.ExecuteNonQuery();
-
-
                 }
             }
         }
 
+        /// <summary>
+        /// Deletar um determinado gênero através do seu Id
+        /// </summary>
+        /// <param name="id">Id do objeto a ser deletado</param>
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                string queryDelete = "DELETE FROM Genero WHERE IdGenero = @Id";
+
+                using (SqlCommand cmd = new SqlCommand(queryDelete, con))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    con.Open();
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         /// <summary>

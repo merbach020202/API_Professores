@@ -1,3 +1,5 @@
+USE Filmes_Eduardo
+
 INSERT INTO Genero VALUES ('Comédia'), ('Terror'), ('Ação')
 
 

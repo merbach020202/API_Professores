@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.X509Certificates;
 using webapi.Filmes.Manha.Domains;
 using webapi.Filmes.Manha.Interface;
 using webapi.Filmes.Manha.Repositores;
@@ -57,6 +58,8 @@ namespace webapi.Filmes.Manha.Controller
             }
         }
 
+
+
         /// <summary>
         /// EndPoint que aciona o método de cadastro genero
         /// </summary>
@@ -73,12 +76,63 @@ namespace webapi.Filmes.Manha.Controller
                 //Retorna o status code 201 - Created
                 return StatusCode(201);
             }
-            catch ( Exception erro)
+            catch (Exception erro)
             {
                 //Retorna o sattus code 400(BadRequest) e a mensagem do erro
                 return BadRequest(erro.Message);
             }
+        }
 
+
+        /// <summary>
+        /// EndPoint que aciona o método de deletar gênero
+        /// </summary>
+        /// <param name="id">Id do gênero a ser deletado</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+
+        public IActionResult Delete(int id)
+        {
+
+            try
+            {
+                _generoRepository.Deletar(id);
+
+                return StatusCode(204);
+            }
+            catch (Exception erro)
+            {
+
+                return BadRequest(erro.Message);
+
+            }
+
+        }
+
+        /// <summary>
+        /// Endpoint que aciona o método de buscar por id
+        /// </summary>
+        /// <param name="id">Id do objeto a ser buscado</param>
+        /// <returns>Status code e objeto caso encontrado</returns>
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                GeneroDomain generoBuscado = _generoRepository.BuscarPorId(id);
+
+                if (generoBuscado == null)
+                {
+                    return NotFound("Nenhum gênero foi encontrado!");
+                }
+
+                return Ok(generoBuscado);
+            }
+            catch (Exception erro)
+            {
+                //Retorna o sattus code 400(BadRequest) e a mensagem do erro
+                return BadRequest(erro.Message);
+            }
         }
     }
 }

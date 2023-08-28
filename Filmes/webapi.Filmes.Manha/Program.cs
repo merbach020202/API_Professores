@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,26 +8,25 @@ var builder = WebApplication.CreateBuilder(args);
 //Adiciona o serviço de controller 
 builder.Services.AddControllers();
 
-//Adiciona o serviço de Swagger
+//Adiciona o serviço de Swagger a coleção de serviços
 builder.Services.AddSwaggerGen(options =>
 {
+    //Adiciona informações sobre a API no swagger
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "ToDo API",
-        Description = "An ASP.NET Core Web API for managing ToDo items",
-        TermsOfService = new Uri("https://example.com/terms"),
+        Title = "API Filmes Manhã",
+        Description = "API para gerenciamento de filmes - introdução da sprint 2 - Backend API",
         Contact = new OpenApiContact
         {
-            Name = "Example Contact",
-            Url = new Uri("https://example.com/contact")
+            Name = "Meu github",
+            Url = new Uri("https://github.com/merbach020202/API_Professores")
         },
-        License = new OpenApiLicense
-        {
-            Name = "Example License",
-            Url = new Uri("https://example.com/license")
-        }
     });
+
+    // Configura o swagger para gerar o arquivo xml gerado
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
 var app = builder.Build();
