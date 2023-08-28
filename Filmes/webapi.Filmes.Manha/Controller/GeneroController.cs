@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
 using webapi.Filmes.Manha.Domains;
@@ -133,6 +134,25 @@ namespace webapi.Filmes.Manha.Controller
                 //Retorna o sattus code 400(BadRequest) e a mensagem do erro
                 return BadRequest(erro.Message);
             }
+        }
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(GeneroDomain atualizar)
+    {
+        try
+        {
+            GeneroDomain generoAtualizado = _generoRepository.AtualizarIdUrl(id);
+
+            if (generoAtualizado == null)
+            {
+                return NotFound("Inválido!");
+            }
+            return Ok(generoAtualizado);
+        }
+        catch (Exception erro)
+        {
+            return BadRequest(erro.Message);
         }
     }
 }
