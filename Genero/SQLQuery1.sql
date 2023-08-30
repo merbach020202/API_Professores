@@ -14,3 +14,11 @@ CREATE TABLE Filme
 	Titulo VARCHAR(50)
 )
 
+CREATE TABLE Usuario
+(
+	IdUsuario INT PRIMARY KEY IDENTITY,
+	Email VARCHAR(50),
+	Senha VARCHAR(50),
+	Permissao VARCHAR(50)
+)
+

@@ -1,36 +1,37 @@
 ﻿using webapi.Filmes.Manha.Domains;
+using webapi.Filmes.Manha.Repositores;
 
 namespace webapi.Filmes.Manha.Interface
 {
-    public interface IFilmeRepository
+    public interface IUsuarioRepository
     {
         //tipoRetorno NomeMetodo(TipoParâmetro NomeParâmetro)
 
         /// <summary>
         /// Cadastrar um novo Genero
         /// </summary>
-        /// <param name="novoFilme">Objeto que será cadastrado</param>
-        void Cadastrar(FilmeDomain novoFilme);
+        /// <param name="novoUsuario">Objeto que será cadastrado</param>
+        void Cadastrar(UsuarioRepository novoUsuario);
 
         /// <summary>
         /// Listar todos os objetos
         /// </summary>
         /// <returns>Lista com todos os obetos</returns>
-        List<FilmeDomain> ListarTodos();
+        List<UsuarioRepository> ListarTodos();
 
         /// <summary>
         /// Atualizar objeto existente passando o seu id pelo corpo da requisição
         /// </summary>
-        /// <param name="filme">Objeto atualizado</param>
-        void AtualizarIdCorpo(FilmeDomain genero);
+        /// <param name="usuario">Objeto atualizado</param>
+        void AtualizarIdCorpo(int id, UsuarioRepository usuario);
 
 
         /// <summary>
         /// Atualizar objeto existente atuaizando seu id pela URL
         /// </summary>
         /// <param name="id">Objeto atualizado (Novas informações)</param>
-        /// <param name="filme"></param>
-        void AtualizarIdUrl(int id, FilmeDomain filme);
+        /// <param name="usuario"></param>
+        void AtualizarIdUrl(int id, UsuarioRepository usuario);
 
 
         /// <summary>
@@ -45,6 +46,9 @@ namespace webapi.Filmes.Manha.Interface
         /// </summary>
         /// <param name="id">Id do objeto a ser buscado</param>
         /// <returns>Objeto buscado</returns>
-        FilmeDomain BuscarPorId(int id);
+        UsuarioRepository BuscarPorId(int id);
     }
 }
+}
+
+

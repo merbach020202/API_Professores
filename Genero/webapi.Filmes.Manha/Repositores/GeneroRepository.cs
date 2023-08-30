@@ -35,7 +35,7 @@ namespace webapi.Filmes.Manha.Repositores
                     //Passa os valores dos parâmetros
                     cmd.Parameters.AddWithValue("@Nome", genero.Nome);
                     cmd.Parameters.AddWithValue("@IdGenero", genero.IdGenero);
-                    
+
                     //Abre a conexão com o bancod e dados
                     con.Open();
 
