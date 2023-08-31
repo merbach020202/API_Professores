@@ -7,42 +7,70 @@ namespace webapi.Filmes.Manha.Repositores
     public class UsuarioRepository : IUsuarioRepository
     {
         private string StringConexao = "Data Source = NOTE05-S15; Initial Catalog=Filmes_Eduardo; User Id = sa; Pwd = Senai@134";
-        public void AtualizarIdCorpo(int id, UsuarioRepository genero)
-        {
-            throw new NotImplementedException();
-        }
+        
+        //public UsuarioDomain BuscarLogin(string Email, string Senha)
+        //{
+        //    using (SqlConnection con = new SqlConnection(StringConexao))
+        //    {
+        //        string queryInsert = "SELECT Email, Senha FROM Usuario WHERE Email = @Email AND Senha = @Senha";
 
-        public void AtualizarIdUrl(int id, UsuarioRepository genero)
-        {
-            throw new NotImplementedException();
-        }
+        //        con.Open();
 
-        public UsuarioRepository BuscarPorId(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //        SqlDataReader rdr;
 
-        public void Cadastrar(UsuarioRepository novoGenero)
-        {
-            throw new NotImplementedException();
-        }
+        //        using (SqlCommand cmd = new SqlCommand(queryInsert, con))
+        //        {
+        //            cmd.Parameters.AddWithValue("@Email", Email);
+        //            cmd.Parameters.AddWithValue(@"Senha", Senha);
 
-        public void Deletar(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //            rdr = cmd.ExecuteReader();
 
-        public List<UsuarioRepository> ListarTodos()
-        {
-            throw new NotImplementedException();
-        }
+        //            if (rdr.Read())
+        //            {
+        //                UsuarioDomain usuarioBuscado = new UsuarioDomain
+        //                {
+        //                    Email = rdr["Email"].ToString(),
+        //                    Senha = rdr["Senha"].ToString()
+        //                };
+        //                return usuarioBuscado;
+        //            }
 
-        public void Login(UsuarioRepository novoUsuario)
+        //            return null;
+        //        }
+        //    }
+        //}
+
+        public UsuarioDomain Login(string Email, string Senha)
         {
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                string queryInsert = "INSERT INTO Usuario(Email) VALUES (@Email)"
+                string queryInsert = "SELECT Email, Senha FROM Usuario WHERE Email = @Email AND Senha = @Senha";
+
+                con.Open();
+
+                SqlDataReader rdr;
+
+                using (SqlCommand cmd = new SqlCommand(queryInsert, con))
+                {
+                    cmd.Parameters.AddWithValue("@Email", Email);
+                    cmd.Parameters.AddWithValue(@"Senha", Senha);
+
+                    rdr = cmd.ExecuteReader();
+
+                    if (rdr.Read())
+                    {
+                        UsuarioDomain usuarioBuscado = new UsuarioDomain
+                        {
+                            Email = rdr["Email"].ToString(),
+                            Senha = rdr["Senha"].ToString()
+                        };
+                        return usuarioBuscado;
+                    }
+
+                    return null;
+                }
             }
         }
+
     }
 }
