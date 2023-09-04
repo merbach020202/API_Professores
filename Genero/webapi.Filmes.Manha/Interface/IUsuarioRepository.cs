@@ -11,5 +11,6 @@ namespace webapi.Filmes.Manha.Interface
 
 }
 
+//Definimos qual método vai herdar da classe
 
 

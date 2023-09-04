@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\webapi.Filmes.Manha",
+    "\\webapi.Filmes.Manha\\Controller"
   ],
+  "SelectedNode": "\\webapi.Filmes.Manha\\Controller\\UsuarioController.cs",
   "PreviewInSolutionExplorer": false
 }

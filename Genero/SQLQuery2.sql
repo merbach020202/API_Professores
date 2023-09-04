@@ -11,7 +11,7 @@ VALUES
 
 INSERT INTO Usuario (Email, Senha, Permissao)
 VALUES
-	('eduardo.brenn@gmail.com','123','comum'),
+	('eduardo.brenn2@gmail.com','1234567890','comum'),
 	('carlos.roque@gmail.com','123','Administrador')
 
 

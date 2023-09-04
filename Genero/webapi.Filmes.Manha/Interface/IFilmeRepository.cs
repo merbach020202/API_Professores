@@ -4,7 +4,7 @@ namespace webapi.Filmes.Manha.Interface
 {
     public interface IFilmeRepository
     {
-        //tipoRetorno NomeMetodo(TipoParâmetro NomeParâmetro)
+        //tipoRetorno, NomeMetodo(TipoParâmetro NomeParâmetro)
 
         /// <summary>
         /// Cadastrar um novo Genero
