@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography.X509Certificates;
@@ -18,6 +19,8 @@ namespace webapi.Filmes.Manha.Controller
 
     //Define que o tipo de resposta da API será no formato JSON
     [Produces("application/json")]
+
+    [Authorize]
 
     //Método controlador que herda da controller base
     //Onde será criado os Endpoints (rotas)
@@ -42,6 +45,7 @@ namespace webapi.Filmes.Manha.Controller
         /// </summary>
         /// <returns>Retorna a resposta para o usuário(Front_end)</returns>
         [HttpGet]
+        [Authorize(Roles = "Administrador,comum")]
         public IActionResult Get()
         {
             try
@@ -67,6 +71,7 @@ namespace webapi.Filmes.Manha.Controller
         /// <param name="novoGenero">Objeto recebido na requisição</param>
         /// <returns>resposta para o usuário(front-End) </returns>
         [HttpPost]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Post(GeneroDomain novoGenero)
         {
             try
